@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <%- include ('head'); -%>
+
+<body>
+
+  <%- include ('nav'); -%>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row"></div>
+        <div class="col-md">
+    		  <div class="invoice-title">
+    			  <h2>{Merchant Name}</h2><h3 class="float-right">Order # 12345</h3>
+    		  </div>
+    		  <hr>
+    		  <div class="row">
+    			  <div class="col-md">
+    				  <address>
+    				  <strong>Merchant Info:</strong><br>
+    					  Merchant Name<br>
+    					  Merchant Email<br>
+    					  Merchant Website<br>
+    				  </address>
+            </div>
+            <div class="col-md text-center">
+              <%= toWallet %>
+              <br/>
+              <img class="bg-dark rounded border border-info" src="https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=<%= toWallet %>"/>
+              <br/>
+              <span id="confirmation">Scan to pay <span class="totalOwed" style="font-family: bitcoinregular, arial, sans-serif">฿<%= total.btc.toFixed(8) %></span></span>
+              <br/>
+              <span class="confirm1">Waiting for confirmation of payment...</span>
+            </div>
+    			  <div class="col-md text-right">
+    				  <address>
+        			  <strong>Purchaser:</strong><br>
+    					  <%= user.username %><br>
+    					  {Email} Not Shared<br>
+    				  </address>
+    			  </div>
+          </div>
+    		  <div class="row">
+    			  <div class="col-md">
+    				  <address>
+    					  <strong>Payment Method:</strong><br>
+    					  <span style="font-family: bitcoinregular, arial, sans-serif">฿</span><span class="text-muted">itcoin - Scan QR code to Pay this amount</span><br>
+              </address>
+              <br/>
+              <div class="custom-control custom-checkbox mr-sm-2">
+                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                <label class="custom-control-label" for="customControlAutosizing">Convert totals to USD</label>
+              </div>
+    			  </div>
+    			  <div class="col-md text-right">
+    				  <address>
+    					  <strong>Order Date:</strong><br>
+    					  May 7, 2020<br><br>
+              </address>
+              <address>
+    					  <strong>Next Payment Due Date:</strong><br>
+    					  June 7, 2020<br><br>
+    				  </address>
+    			  </div>
+          </div>
+          <div class="row">
+            <div class="col-md">
+             <div class="panel panel-default">
+               <div class="panel-heading">
+                 <h3 class="panel-title"><strong>Order summary</strong></h3>
+               </div>
+               <div class="panel-body">
+                 <div class="table-responsive">
+                   <table class="table table-condensed">
+                     <thead>
+                         <tr>
+                           <td><strong>Item</strong></td>
+                             <td class="text-center"><strong>Price</strong></td>
+                             <td class="text-center"><strong>Quantity</strong></td>
+                             <td class="text-right"><strong>Totals</strong></td>
+                         </tr>
+                     </thead>
+                     <tbody>
+                       <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                       <% for(var i=0; i < items.length; i++) { %>
+                        <tr>
+                          <td><%= items[i].name %></td>
+                          <td class="text-center">$<%= items[i].price %></td>
+                          <td class="text-center"><%= items[i].quantity %></td>
+                          <td class="text-right">$<%= (items[i].price*items[i].quantity).toFixed(2) %></td>
+                        </tr>
+                       <% } %>
+                       <tr>
+                         <td class="thick-line"></td>
+                         <td class="thick-line"></td>
+                         <td class="thick-line text-center"><strong>Subtotal</strong></td>
+                         <td class="thick-line text-right">$<%= total.usd %></td>
+                       </tr>
+                       <tr>
+                         <td class="no-line"></td>
+                         <td class="no-line"></td>
+                         <td class="no-line text-center"><strong>Shipping</strong></td>
+                         <td class="no-line text-right">$0.0</td>
+                       </tr>
+                       <tr>
+                        <td class="no-line"></td>
+                        <td class="no-line"></td>
+                        <td class="no-line text-center"><strong>Taxes</strong></td>
+                        <td class="no-line text-right"><strong>$0</strong></td>
+                      </tr>
+                       <tr>
+                         <td class="no-line"></td>
+                         <td class="no-line"></td>
+                         <td class="no-line text-center"><strong>Total</strong></td>
+                         <td class="no-line text-right"><strong>$<%= total.usd %></strong> <span class="text-muted"><%= total.btc.toFixed(8) %></span></td>
+                       </tr>
+                     </tbody>
+                   </table>
+                 </div>
+               </div>
+             </div>
+    	  </div>
+      </div>
+    
+    
+    </div>
+  </div>
+</div>
+  <!-- /.container -->
+
+  <%- include ('footer'); -%>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

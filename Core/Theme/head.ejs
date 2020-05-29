@@ -1,0 +1,89 @@
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="A lightweight crypto payment gateway.">
+  
+    <title><%= title %></title>
+  
+    <!-- Bootstrap core CSS -->
+    <link href="./vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+    <!-- Custom styles for this template -->
+    <link href="css/heroic-features.css" rel="stylesheet">
+    <style>
+        .invoice-title h2, .invoice-title h3 {
+            display: inline-block;
+        }
+
+        .table > tbody > tr > .no-line {
+            border-top: none;
+        }
+
+        .table > thead > tr > .no-line {
+            border-bottom: none;
+        }
+
+        .table > tbody > tr > .thick-line {
+            border-top: 2px solid;
+        }
+        @font-face {
+    font-family: 'bitcoinregular';
+    src: url('bitcoin-webfont.eot');
+    src: url('bitcoin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('bitcoin-webfont.woff2') format('woff2'),
+         url('bitcoin-webfont.woff') format('woff'),
+         url('bitcoin-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+    </style>
+    <% if(typeof toWallet != 'undefined'){%>
+    <script type="text/javascript">
+        window.onload = function() {
+            websocket = new WebSocket('wss://ws.blockchain.info/inv');
+            websocket.onopen = function(evt) { 
+                websocket.send(JSON.stringify({"op":"addr_sub", "addr":"<%= toWallet %>"}));
+            };
+            websocket.onclose = function(evt) { onClose(evt) };
+            websocket.onmessage = function(msg) { 
+                JSON.parse(msg.data).x.out.forEach((out) => {
+                    if(out.addr === '<%= toWallet %>') {
+                        console.log(`${out.value/10000000} BTC Recieved`);
+                        document.getElementsByClassName("confirm1")[0].innerText=`Payment Recieved: ${out.value/10000000}`;
+                        var classname = document.getElementsByClassName("confirm1")[0].className;
+                        classname.concat(' text-success');
+                        document.getElementsByClassName("confirm1")[0].className += classname.concat(' text-success');
+                    }
+                });
+            };
+            websocket.onerror = function(evt) { console.error(evt); };
+        };
+    </script>
+    <% } %>
+    <style type="text/css">
+        .login-form {
+            width: 340px;
+            margin: 50px auto;
+        }
+        .login-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
+        .login-form h2 {
+            margin: 0 0 15px;
+        }
+        .form-control, .btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
+        .btn {        
+            font-size: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>

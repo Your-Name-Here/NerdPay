@@ -1,0 +1,57 @@
+doctype
+html( lang="en" )
+    head
+        title!=title
+        meta( charset='utf-8' )
+        meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+        meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+        meta( name='description', content='NerdPay - A Lightweight Crypto Payment Gateway' )
+        //- Bootswatch Theme
+        link(href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.0/flatly/bootstrap.min.css", rel="stylesheet")
+ 
+    body(style="padding-bottom:10rem;")
+        .container
+            nav.navbar.navbar-default( role="navigation" )
+                .navbar-header
+                    button.navbar-toggle.collapsed( type="button", data-toggle="collapse", data-target="#navbar-inverse", aria-expanded="false", aria-controls="navbar")
+                    span.sr-only Toggle navigation
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href="/") NerdPay
+                #navbar-inverse.collapse.navbar-collapse
+                    ul.nav.navbar-nav
+                        li.active: a( href="#") Home
+                        li: a( href="about/" ) Order Details
+                        li: a( href="contact/" ) Contact
+                        li.dropdown
+                            a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) Order 
+                                span.caret
+                            ul.dropdown-menu( role="menu" )
+                                li.dropdown-header Order Actions
+                                li: a( href="#" ) View Itemized Order
+                                li: a( href="#" ) Add More Items
+                                li: a( href="#" ) Request Invoice
+                                li: a( href="#" ) Convert to Recurring Order
+                                li.divider
+                                li: a( href="#" ) Cancel Order
+                        li.dropdown
+                            a.dropdown-toggle( href="#", data-toggle="dropdown", role="button", aria-expanded="false" ) My Account 
+                                span.caret
+                            ul.dropdown-menu( role="menu" )
+                                li: a( href="#" ) Overview
+                                li.divider
+                                li.dropdown-header Funds
+                                li: a( href="#" ) Add ฿
+                                li: a( href="#" ) Remove ฿
+                                li.divider
+                                li.dropdown-header Account Actions
+                                li: a( href="#" ) Settings
+                                li: a( href="#" ) Cancel Recurring Payments
+
+            h1=message
+            h2.small.center A lightweight Crypto Payment System
+            br
+            img(src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=skljdfoiwmeflsakdmfalksdfjlaskd")
+        script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js' )
+        script( src='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js' )
